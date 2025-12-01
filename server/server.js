@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import fs from "fs"
+import path from "path"
 
 const PORT = 6767
 
@@ -14,10 +15,11 @@ app.get("/", (req, res) => {
 
 app.post("/indhold/sigma", (req, res) => {
     const { title } = req.body
-
-    fs.readFile("todo.json", "utf-8", (err, data) => {
+    console.log(__dirname);
+    
+    fs.readFile(path.join(__dirname, "todo.json"), "utf-8", (err, data) => {
         if (err) {
-            res.json({ error: "den kan ikke læse indholdet lil bro 💀🥷🥷" })
+            return res.json({ error: "den kan ikke læse indholdet lil bro 💀🥷🥷" })
         }
 
         const superData = JSON.parse(data)
